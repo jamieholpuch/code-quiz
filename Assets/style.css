@@ -1,8 +1,91 @@
+*, *:: before, *:: after {
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+:root {
+  --wrong: red;
+  --correct: green;
+  --neutral: black;
+}
+
 body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
   font-size: 30px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-color: #ffffff;
   color: #57466D;
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color:rgba(60, 64, 67, 0.15)
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  background-color: #57466D;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 20px 20px;
+  color: white;
+  outline: none;
+  font-size: 80%;
+}
+
+.btn:hover {
+  background-color: plum;
+}
+
+body.correct {
+  background-color: var(--correct);
+}
+
+body.wrong {
+  background-color: var(--wrong);
+}
+
+.start-btn, .next-btn {
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
+
+#my-timer {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background-color: #57466D;
+  color: white;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 50px;
 }
 
 h2 {
@@ -14,7 +97,7 @@ li {
   margin-top: 20px;
   display: block;
 }
-*/
+
 p {
     font-size: 0.75em;
 }
@@ -47,7 +130,7 @@ select {
   margin-top: 10px;
   background-color: #d9bbe6
 }
-*/
+
 .card {
     background-color:	#fef5fa;
     border: 1px solid #D0E5FA;
