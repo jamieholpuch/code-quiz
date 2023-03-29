@@ -23,19 +23,15 @@ nextButton.addEventListener('click', () => {
 })
 
 function startQuiz() {
+    console.log('started')
     startButton.classList.add('hide')
-    shuffledQuestions = myQuestions.sort(() => Math.random() - .5)
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
 }
     //timer for 10 minutes begins 
     //start quiz button disappear
-
-    
-
-
-
 
     function startTimer(duration, display) {
         var timer = duration, minutes, seconds;
@@ -51,18 +47,13 @@ function startQuiz() {
             if (--timer < 0) {
                 timer = duration;
             }
-        }, 1000);
-    };
+    });
     
     //startQuizEl.addEventListener("click", function() {
       //  var tenMinutes = 60 * 10,
         //display = document.querySelector('#my-timer');
         //startTimer(tenMinutes, display);
     //});
-
-
-
-  
     
     //presented with next question
 
@@ -86,6 +77,7 @@ function showQuestion(question) {
 }
 
 function resetState() {
+    clearStatusClass(document.body)
     nextButton.classList.add('hide')
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild);
@@ -122,8 +114,7 @@ function clearStatusClass(element) {
 }
 
 var myQuestions = [
-    {
-        question: "1: What is an array?",
+    {   question: "1: What is an array?",
         answers: [
             {text: 'a: Specific actions that can be performed on objects', correct: false},
             {text: 'b: A block of code designed to perform a task', correct: false},
@@ -209,28 +200,3 @@ var myQuestions = [
         ]
     },
 ]
-
-
-//if question answer === yes
-    //correct answer notitifcation
-    //user presented with another question
-    //correct answer logged as 1
-
-//if question answer === no
-    //wrong answer notitication
-    //60 seconds is subtracted from the clock
-    //user presented with another question
-    //wrong answer logged as 0
-
-//game is over when: 
-    //all questions answered
-    //OR timer reaches 0 seconds
-
-//when game is over: 
-    //user's score is calculated
-    //user's score is displayed
-    //user enters initials
-    //user saves score
-    //score is saved to local storage
-    //score is logged to high scores ranking
-    

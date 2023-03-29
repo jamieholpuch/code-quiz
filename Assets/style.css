@@ -23,10 +23,18 @@ body {
   color: #57466D;
 }
 
+body.correct {
+  background-color: var(--correct);
+}
+
+body.wrong {
+  background-color: var(--wrong);
+}
+
 .container {
   width: 800px;
   max-width: 80%;
-  background-color:rgba(60, 64, 67, 0.15)
+  background-color: white;
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 0 10px 2px;
@@ -53,12 +61,12 @@ body {
   background-color: plum;
 }
 
-body.correct {
-  background-color: var(--correct);
+.btn.correct {
+  background-color: var(--correct)
 }
 
-body.wrong {
-  background-color: var(--wrong);
+.btn.wrong {
+  background-color: var(--wrong)
 }
 
 .start-btn, .next-btn {
@@ -66,6 +74,7 @@ body.wrong {
   font-weight: bold;
   padding: 10px 20px;
 }
+
 
 .buttons {
   display: flex;
@@ -87,7 +96,7 @@ body.wrong {
   padding: 10px;
   margin: 50px;
 }
-
+/*
 h2 {
   text-align: center;
 }
@@ -130,7 +139,6 @@ select {
   margin-top: 10px;
   background-color: #d9bbe6
 }
-
 .card {
     background-color:	#fef5fa;
     border: 1px solid #D0E5FA;
