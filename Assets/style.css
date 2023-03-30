@@ -3,12 +3,6 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
-:root {
-  --wrong: red;
-  --correct: green;
-  --neutral: black;
-}
-
 body {
   padding: 0;
   margin: 0;
@@ -23,12 +17,15 @@ body {
   color: #57466D;
 }
 
-body.correct {
-  background-color: var(--correct);
-}
-
-body.wrong {
-  background-color: var(--wrong);
+.card {
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
 }
 
 .container {
@@ -61,15 +58,7 @@ body.wrong {
   background-color: plum;
 }
 
-.btn.correct {
-  background-color: var(--correct)
-}
-
-.btn.wrong {
-  background-color: var(--wrong)
-}
-
-.start-btn, .next-btn {
+.start-btn {
   font-size: 2.5rem;
   font-weight: bold;
   padding: 10px 20px;
@@ -95,84 +84,6 @@ body.wrong {
   border-radius: 5px;
   padding: 10px;
   margin: 50px;
-}
-/*
-h2 {
-  text-align: center;
-}
- /*
-li {
-  list-style: none;
-  margin-top: 20px;
-  display: block;
-}
-
-p {
-    font-size: 0.75em;
-}
-
-button {
-  background-color: #57466D;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1.0em;
-  letter-spacing: 0.21px;
-  line-height: 16px;
-  max-width: 255px;
-  padding: 20px 52px;
-  text-align: center;
-  transition-duration: 0.15s;
-  transition-property: background-color;
-  transition-timing-function: linear;
-  margin: 0.6em auto;
-  display: block;
-}
-/*
-label {
-  color: #212121;
-}
-
-select {
-  font-size: 30px;
-  width: 100%;
-  margin-top: 10px;
-  background-color: #d9bbe6
-}
-.card {
-    background-color:	#fef5fa;
-    border: 1px solid #D0E5FA;
-    border-radius: 8px;
-    box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
-    rgba(60, 64, 67, 0.15) 0 2px 4px 3px;
-    display: block;
-    margin: auto;
-    margin-top: 60px;
-    padding: 20px;
-    width: 60vw;
-  
-}
-
-.card::after {
-  content: " ";
-  display: block;
-  clear: both;
-}
-
-.time {
-
-}
-
-.questions {
-
-}
-
-#msg {
-  display: block;
-  min-height: 100px;
-  width: 100%;
-  margin-top: 10px;
-  background-color: #d9bbe6;
 }
 
 @media only screen and (max-width: 800px) {

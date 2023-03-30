@@ -1,202 +1,225 @@
-//on page load
-    //user welcomed to quiz - done
-    //user sees start quiz button - done
 
-//questions:
+// Welcome message
+    //welcome to the quiz
+    //Start button
 
+const welcomeEl = document.querySelector('#welcomeCard')
+const startButtonEl = document.querySelector('#start-btn')
 
+//Quiz question card
+    //timer
+    //question
+    //answers
+    //next button
 
-//when user presses start:
+const timerEl = document.querySelector('#my-timer')
+var interval;
+var timeGiven = 120;
+var secondsElapsed = 0;
+const quizCardEl = document.querySelector('#question-container')
+const questionEl = document.querySelector('#question')
+var currentQuestion = 0;
+var score = 0;
+const answersEl = document.querySelector('#answer-buttons')
+const nextButtonEl = document.querySelector('#next-btn')
+var msgDiv = document.querySelector("#msg")
 
-var startButton = document.getElementById('start-btn')
-var nextButton = document.getElementById('next-btn')
-var questionContainerElement = document.getElementById('question-container')
+//Quiz complete - view your score
+    //View your score
+    //Enter your initials
+    //submit button
 
-var shuffledQuestions, currentQuestionIndex
-var questionEl = document.getElementById('question')
-var answerButtonsEl = document.getElementById('answer-buttons')
+const inputScoreEl = document.querySelector('#inputScore')
+const initialsEl = document.querySelector('#initials')
+const submitInitialsBtnEl = document.querySelector('#submitInitials')
+const userScoreEl = document.querySelector('#user-score')
 
-startButton.addEventListener('click', startQuiz)
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion()
-})
+//View all of the high scores
 
-function startQuiz() {
-    console.log('started')
-    startButton.classList.add('hide')
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
-    setNextQuestion()
-}
-    //timer for 10 minutes begins 
-    //start quiz button disappear
+const highScoresEl = document.querySelector('#highScores')
+const scoresEl = document.querySelector('#view-scores')
+const clearScoresBtnEl = document.querySelector('#clearScores')
+var highScores = []
 
-    function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-    
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-            display.textContent = minutes + ":" + seconds;
-    
-            if (--timer < 0) {
-                timer = duration;
-            }
-    });
-    
-    //startQuizEl.addEventListener("click", function() {
-      //  var tenMinutes = 60 * 10,
-        //display = document.querySelector('#my-timer');
-        //startTimer(tenMinutes, display);
-    //});
-    
-    //presented with next question
+//define the questions to be rendered
 
-function setNextQuestion() {
-    resetState()
-    showQuestion(shuffledQuestions[currentQuestionIndex])
-}
-
-function showQuestion(question) {
-    questionEl.innerText = question.question
-    question.answers.forEach (answer => {
-        var button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('btn')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
-        }
-        button.addEventListener('click', selectAnswer)
-        answerButtonsEl.appendChild(button);
-    })
-}
-
-function resetState() {
-    clearStatusClass(document.body)
-    nextButton.classList.add('hide')
-    while (answerButtonsEl.firstChild) {
-        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-    }
-}
-
-function selectAnswer(e) {
-    var selectedButton = e.target
-    var correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsEl.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
-    } else {
-        startButton.innerText = "Restart"
-        startButton.classList.remove('hide')
-    }
-}
-
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
-
-function clearStatusClass(element) {
-    element.ClassList.remove('correct')
-    element.ClassList.remove('wrong')
-}
-
-var myQuestions = [
-    {   question: "1: What is an array?",
-        answers: [
-            {text: 'a: Specific actions that can be performed on objects', correct: false},
-            {text: 'b: A block of code designed to perform a task', correct: false},
-            {text: 'c: A way to store more than one value in a single variable', correct: true},
-            {text: 'd: A container for named values called properties', correct: false}
-        ]
+var questions = [
+    {
+        title: "What is an array?",
+        choices: ["Specific actions that can be performed on objects","A block of code designed to perform a task","A way to store more than one value in a single variable","A container for named values called properties"],
+        answer: "A way to store more than one value in a single variable"
     },
     {
-        question: "2: What is a JavaScript function?",
-        answers: [
-            {text: 'a: A block of code designed to perform a task', correct: true},
-            {text: 'b: A way to store more than one value in a single variable', correct: false},
-            {text: 'c: Specific actions that can be performed on objects', correct: false},
-            {text: 'd: A container for named values called properties', correct: false}
-        ]
+        title: "What is a JavaScript function?",
+        choices: ["A block of code designed to perform a task","A way to store more than one value in a single variable","Specific actions that can be performed on objects","A container for named values called properties"],
+        answer: "A block of code designed to perform a task"
     },
     {
-        question: "3: What does DOM stand for?",
-        answers: [
-            {text: 'a: Document Order Management', correct: false},
-            {text: 'b: Dynamic Object Management', correct: false},
-            {text: 'c: Distribution Output Management', corect: false},
-            {text: 'd: Document Object Model', correct: true}
-        ]
+        title: "What does DOM stand for?",
+        choices: ["Document Order Management","Dynamic Object Management","Distribution Output Management","Document Object Model"],
+        answer: "Document Object Model"
     },
     {
-        question: "4: Which of the following is NOT a primitive?",
-        answers: [
-            {text: 'a: Boolean', correct: false},
-            {text: 'b: String', correct: false},
-            {text: 'c: Array', correct: true},
-            {text: 'd: Number', correct: false}
-        ]
+        title: "Which of the following is NOT a primitive?",
+        choices: ["Boolean","String","Array","Number"],
+        answer: "Array"
     },
     {
-        question: "5: True or False: '==' is considered a strict comparison operator.",
-        answers: [
-            {text: 'a: True', correct: false},
-            {text: 'b: False', correct: true}
-        ]
+        title: "True or False: '==' is considered a strict comparison operator.",
+        choices: ["True","False"],
+        answer: "False"
     },
     {
-        question: "6: True or False: A for loop is used to run the same code over and over again with a different value.",
-        answers: [
-            {text: 'a: True', correct: true},
-            {text: 'b: False', correct: false}
-        ]
+        title: "True or False: A for loop is used to run the same code over and over again with a different value.",
+        choices: ["True","False"],
+        answer: "True"
     },
     {
-        question: "7: What does JSON stand for?" ,
-        answers: [
-            {text: 'a: JavaScript Object Notation', correct: true},
-            {text: 'b: JavaScript Orientation Nodes', correct: false},
-            {text: 'c: JS Operator Notation', correct: false},
-            {text: 'd: JavaScript Output Nodes', correct: false}
-        ]
+        title: "What does JSON stand for?",
+        choices: ["JavaScript Object Notation","JavaScript Orientation Nodes","JS Operator Notation","JavaScript Output Nodes"],
+        answer: "JavaScript Object Notation"
     },
     {
-        question: "8: Which of the following is an example of a built-in method?",
-        answers: [
-            {text: 'a: .toUpperCase()', correct: false},
-            {text: 'b: .length()', correct: false},
-            {text: 'c: .push()', correct: false},
-            {text: 'd: All of the above', correct: true}
-        ]
+        title: "Which of the following is an example of a built-in method?",
+        choices: [".toUpperCase()",".length()",".push()","All of the above"],
+        answer: "All of the above"
     },
     {
-        question: "9: What does the sort() method do?",
-        answers: [
-            {text: 'a: Arranges an array in random order', correct: false},
-            {text: 'b: Arranges an object alphabetically', correct: false},
-            {text: 'c: Arranges an array alphabetically', correct: true},
-            {text: 'd: Nothing, it is not a method', correct: false}  
-        ]
+        title: "What does the sort() method do?",
+        choices: ["Arranges an array in random order","Arranges an object alphabetically","Arranges an array alphabetically","Nothing, it is not a method"],
+        answer: "Arranges an array alphabetically"
     },
     {
-        question: "10: What is event bubbling?",
-        answers: [
-            {text: 'a: When events burst and no longer work', correct: false},
-            {text: 'b: When an event is propogated from child element to its parent elements', correct: true},
-            {text: 'c: When an event is propogated from parent element to its children elements', correct: false},
-            {text: 'd: When an event is activated many times', correct: false}
-        ]
+        title: "What is event bubbling?",
+        choices: ["When events burst and no longer work","When an event is propogated from child element to its parent elements","When an event is propogated from parent element to its children elements","When an event is activated many times"],
+        answer: "When an event is propogated from child element to its parent elements"
     },
 ]
+
+//hides element
+function hide(element) {
+    element.style.display = "none";
+}
+
+//displays element
+function show(element) {
+    element.style.display = "block";
+}
+
+//run the timer
+
+function runTimer() {
+    timerEl.textContent = timeGiven;
+    interval = setInterval(function() {
+        secondsElapsed++;
+        timerEl.textContent = timeGiven - secondsElapsed;
+        if (secondsElapsed >= timeGiven) {
+            currentQuestion = questions.length;
+            nextQuestion();
+        }
+    }, 1000);
+}
+
+//stop the timer
+
+function stopTimer() {
+    clearInterval(interval);
+}
+
+function renderQuestion() {
+    questionEl.textContent = questions[currentQuestion].title;
+    for (i = 0; i < answersEl.children.length; i++) {
+        answersEl.children[i].textContent = questions[currentQuestion].choices[i];
+    }
+}
+
+//start the quiz
+startButtonEl.addEventListener('click', function () {
+    hide(welcomeEl);
+    hide(startButtonEl);
+    show(timerEl);
+    runTimer();
+    renderQuestion();
+    show(quizCardEl);
+})
+
+//user selects an answer -- what happens next
+    //if answer is correct, add points, display correct message, and next question
+    //if answer is wrong, subtract time, display wrong message, and next question
+
+function displayMessage(type, message) {
+    msgDiv.textContent = message;
+    msgDiv.setAttribute("class", type);
+}
+
+function checkAnswer(answer) {
+    if (questions[currentQuestion].answer == questions[currentQuestion].choices[answer.id]) {
+        score += 1;
+        displayMessage("success", "Great job!");
+        setTimeout(function () {
+            msgDiv.textContent = '';
+        }, 1000);
+    } else {
+        secondsElapsed += 10;
+        displayMessage("error", "Oops, that's not quite right");
+        setTimeout(function () {
+            msgDiv.textContent = '';
+        }, 1000);
+    }
+}
+
+answersEl.addEventListener('click', function(e) {
+    if (e.target.matches('button')) {
+        checkAnswer(e.target);
+        nextQuestion();
+    }
+});
+
+function nextQuestion () {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        renderQuestion();
+    } else {
+        stopTimer();
+        if ((timeGiven - secondsElapsed) > 0)
+        score += (timeGiven - secondsElapsed);
+        userScoreEl.textContent = score;
+        hide(quizCardEl);
+        show(inputScoreEl);
+        timerEl.textContent = 0;
+    }
+}
+
+//quiz is completed
+    //view score
+    //submit initials
+    //view highscores
+
+submitInitialsBtnEl.addEventListener('click', function() {
+  if (submitInitialsBtnEl !== null) {
+    renderHighScores()
+    hide(inputScoreEl)
+  } else {
+    alert ("Please enter your initials")
+  }
+    });
+
+function renderHighScores() {
+    show(highScoresEl);
+    show(clearScoresBtnEl);
+    }
+
+
+//Clears saved scores from local storage
+clearScoresBtnEl.addEventListener("click", function () {
+    highScores = [];
+    localStorage.setItem("scores", JSON.stringify(highScores));
+    renderHighScores();
+});
+
+function reset() {
+    score = 0;
+    currentQ = 0;
+    secondsElapsed = 0;
+    timerEl.textContent = 0;
+}
